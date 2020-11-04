@@ -13,16 +13,20 @@ import web
 
 # Set routes (You can use Regex)
 urls =(
-       '/(.*)', 'index'
+       '/(.*)/(.*)', 'index'
        )
+
+# Specify where to find templates to render 
+render = web.template.render('resources/')
 
 # Create web application
 app = web.application(urls, globals())
 
 # Define class index and method GET
 class index:
-    def GET(self, name):
-        return f"<h1>Hello {name[0].upper() + name[1:]}. </h1>How are you?"
+    def GET(self, name, age):
+        name = name[0].upper() + name[1:]
+        return render.main(name,age)
     
 if __name__ == "__main__":
     app.run()
